@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Claimants — Retriever Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp .6s ease-out both; }
+    .fade-in-delay { animation-delay: 0.15s; }
+    .list-accent {
+      border-left: 4px solid #2563eb; /* Tailwind blue-600 */
+      padding-left: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+<!-- Header with gradient -->
+<header class="border-b border-gray-200 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 text-white">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+        </svg>
+      </div>
+      <span class="text-xl font-semibold">Retriever Portal</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/items" class="hover:underline">Items</a>
+      <a href="/claimants" class="underline font-medium">Claimants</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-6 py-12">
+  <div class="mb-8 fade-in-up">
+    <h1 class="text-3xl font-bold mb-3 text-blue-700">All Claimants</h1>
+    <p class="text-gray-600">Browse and manage all claimants who have reported or claimed lost items.</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 bg-white rounded-lg shadow p-4 fade-in-up fade-in-delay">
+    <a href="/claimants/new" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full shadow transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+      </svg>
+      Add New Claimant
+    </a>
+
+    <form method="GET" action="/claimants/search" class="flex gap-2 w-full sm:w-auto">
+      <input
+        type="text"
+        name="query"
+        placeholder="Search by name"
+        class="border border-gray-300 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 w-full sm:w-64"
+      >
+      <button type="submit" class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-full border border-blue-200 transition">
+        Search
+      </button>
+    </form>
+  </div>
+
+  <!-- Claimant List -->
+  <ul class="space-y-4">
+    <% claimants.forEach(function(claimant, i) { %>
+  <li
+    class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between hover:shadow-md transition fade-in-up"
+    data-delay="<%= (i * 0.05).toFixed(2) %>"
+  >
+    <!-- content -->
+
+        <div class="list-accent text-gray-700">
+          <span class="font-semibold text-gray-900"><%= claimant.name %></span> |
+          Roll: <%= claimant.rollno %> |
+          Found At:
+          <%= claimant.found_at ? new Date(claimant.found_at).toLocaleString() : 'N/A' %>
+          <% if (claimant.item_id) { %>
+            | <a href="/items/<%= claimant.item_id %>" class="text-blue-600 underline hover:text-blue-800">View Item</a>
+          <% } %>
+        </div>
+        <form method="POST" action="/claimants/<%= claimant.rollno %>/delete" onsubmit="return confirm('Delete this claimant?')">
+          <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition mt-2 sm:mt-0">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-200 mt-16">
+  <div class="max-w-6xl mx-auto px-6 py-6 text-sm text-gray-500 flex justify-between">
+    <span>© <span id="year"></span> Retriever Portal</span>
+    <span>Built with care</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Item Details — Retriever Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp .5s ease-out both; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+<!-- Header -->
+<header class="border-b border-gray-200 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 text-white">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold">Retriever Portal</h1>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/items" class="underline font-medium">Items</a>
+      <a href="/claimants" class="hover:underline">Claimants</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-2xl mx-auto px-6 py-12 fade-in-up">
+  <div class="bg-white rounded-2xl shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Item Details</h2>
+
+    <div class="space-y-4 text-gray-700">
+      <p><strong class="text-blue-600">Title:</strong> <%= item.title %></p>
+      <p><strong class="text-blue-600">Description:</strong> <%= item.description || 'N/A' %></p>
+      <p><strong class="text-blue-600">Location:</strong> <%= item.location %></p>
+      <p><strong class="text-blue-600">Status:</strong> <%= item.status %></p>
+      <p><strong class="text-blue-600">Reported At:</strong> <%= item.reported_at ? item.reported_at.toDateString() : 'N/A' %></p>
+      <p><strong class="text-blue-600">Category:</strong> <%= item.category %></p>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="/items"
+         class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow transition">
+        ← Back to Items
+      </a>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
