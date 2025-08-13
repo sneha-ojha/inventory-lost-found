@@ -1,4 +1,3 @@
-```md
 # Lost & Found Portal
 
 A Node.js + Express application for managing lost and found items.  
@@ -135,5 +134,4 @@ It uses EJS for templating and follows an MVC-like folder structure.
 * **CSS / TailwindCSS**
 
 ---
-
 
