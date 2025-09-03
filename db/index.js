@@ -1,7 +1,7 @@
 // db/index.js
 const { Pool } = require('pg');
 require('dotenv').config();
-
+console.log('Attempting to connect to database:', process.env.DB_NAME);
 const pool = new Pool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
