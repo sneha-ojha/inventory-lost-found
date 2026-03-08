@@ -4,9 +4,9 @@ const path = require('path');
 const app = express();
 
 // Routes
-const indexRoutes = require('./routes/index');
-const itemRoutes = require('./routes/items');
-const claimantRoutes = require('./routes/claimants');
+const indexroutes = require('./routes/index');
+const itemroutes = require('./routes/items');
+const claimantroutes = require('./routes/claimants');
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -15,9 +15,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Use routes
-app.use('/', indexRoutes);
-app.use('/items', itemRoutes);
-app.use('/claimants', claimantRoutes);
+app.use('/', indexroutes);
+app.use('/items', itemroutes);
+app.use('/claimants', claimantroutes);
 
 // 404 handler
 app.use((req, res) => {
