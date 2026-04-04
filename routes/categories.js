@@ -1,20 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const categoryController = require("../controllers/categoryController");
+const categoryCont = require("../controllers/categoryController");
 
 // READ all categories
-router.get("/", categoryController.getAllCategories);
+router.get("/", categoryCont.getAllCategories);
 
 // CREATE form
-router.get("/new", categoryController.getNewCategoryForm);
+router.get("/new", categoryCont.getNewCategoryForm);
 
 // CREATE category
-router.post("/", categoryController.createCategory);
+router.post("/", categoryCont.createCategory);
 
 // EDIT form
-router.get("/:id/edit", categoryController.getEditCategoryForm);
+router.get("/:id/edit", categoryCont.getEditCategoryForm);
 
 // UPDATE category
-router.post("/:id", categoryController.updateCategory); // Or use PUT if using method-override
+router.post("/:id", categoryCont.updateCategory); // Or use PUT if using method-override
 
 module.exports = router;
