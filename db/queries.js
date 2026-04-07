@@ -86,3 +86,11 @@ exports.searchClaimantsByName = async (query) => {
   );
   return result.rows;
 };
+// Add to db/queries.js
+exports.getItemsByStatus = async (status) => {
+  const result = await pool.query(
+    `SELECT * FROM items WHERE status ILIKE $1 ORDER BY id DESC`,
+    [status]
+  );
+  return result.rows;
+};

@@ -8,6 +8,7 @@ exports.getAllItems = asyncHandler(async (req, res) => {
   res.render("items/index", { items });
 });
 
+
 // Show the report item form
 exports.getNewItemForm = (req, res) => {
   res.render("items/new");
@@ -79,4 +80,12 @@ exports.getItemDetails = asyncHandler(async (req, res) => {
   }
 
   res.render("items/show", { item });
+});
+// Add to controllers/itemController.js
+exports.getLostItems = asyncHandler(async (req, res) => {
+  // Fetch only items with 'lost' status
+  const items = await db.getItemsByStatus('lost');
+  
+  // Reuse the index view with the filtered items
+  res.render("items/index", { items });
 });
